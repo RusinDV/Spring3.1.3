@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org "
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <style>
+    /*    body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container-fluid {
+            flex: 1;
+
+        }*/
+    </style>
+    <title>User page</title>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="navbar-brand inline">
+        <b th:text="${user.getEmail()}">name</b> with roles:
+        <b class="font-weight-normal" th:text="${user.getAuthGroupList()}">name</b>
+    </div>
+    <div>
+        <a href="/logout" class="text-muted">Logout</a>
+    </div>
+</nav>
+<div class="container-fluid ">
+
+
+    <div class="row">
+        <div class="col-2">
+            <ul class="nav flex-column nav-pills ">
+                <div sec:authorize="hasRole('ROLE_ADMIN')">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/">Admin</a>
+                    </li>
+                </div>
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#user">User</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-10 bg-light">
+            <div class="container-fluid">
+                <div class="h1">User information-page</div>
+
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="user">
+
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    <h5>About user</h5>
+                                </th>
+                            </tr>
+
+                            <tr>
+
+                                <th>
+                                    <table class="table table-striped">
+                                        <th>ID</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Age</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <tr th:object="${user}">
+                                            <td th:text="${user.getId()}">ID</td>
+                                            <td th:text="${user.getFirstName}">First Name</td>
+                                            <td th:text="${user.getLastName()}">Last Name</td>
+                                            <td th:text="${user.getAge()}">Age</td>
+                                            <td th:text="${user.getEmail()}">Email</td>
+                                            <td th:text="${user.getAuthGroupList}">Role</td>
+                                        </tr>
+                                    </table>
+                                </th>
+                        </table>
+                    </div>
+                </div>
+                <div class="fixed-bottom">
+                    <h1 class="font-weight-light mr-md-5" style="float:right">Bootstrap</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
