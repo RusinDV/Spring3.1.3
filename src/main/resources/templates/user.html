@@ -6,19 +6,20 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta charset="UTF-8">
     <style>
-    /*    body {
+        body{
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            height:100vh;
             margin: 0;
             padding: 0;
+            background-color: yellow;
         }
 
-        .container-fluid {
+        .container-fluid{
             flex: 1;
-
-        }*/
+        }
     </style>
+
     <title>User page</title>
 </head>
 <body>
@@ -26,17 +27,19 @@
 <nav class="navbar navbar-dark bg-dark">
     <div class="navbar-brand inline">
         <b th:text="${user.getEmail()}">name</b> with roles:
-        <b class="font-weight-normal" th:text="${user.getAuthGroupList()}">name</b>
+        <div class="d-inline-block p-1" th:each="authGroup:${user.getAuthGroupList}">
+            <span th:text="${authGroup.getAuthGroup} "></span>
+        </div>
     </div>
     <div>
         <a href="/logout" class="text-muted">Logout</a>
     </div>
 </nav>
-<div class="container-fluid ">
+<div class="container-fluid d-flex flex-column ">
 
 
-    <div class="row">
-        <div class="col-2">
+    <div class="row flex-fill d-flex h-100 justify-content-start">
+        <div class="col-2 bg-white">
             <ul class="nav flex-column nav-pills ">
                 <div sec:authorize="hasRole('ROLE_ADMIN')">
                     <li class="nav-item">
@@ -56,34 +59,31 @@
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="user">
 
-                        <table class="table">
-                            <tr>
-                                <th>
-                                    <h5>About user</h5>
-                                </th>
+                        <th>
+                            <h5>About user</h5>
+                        </th>
+                        <table class="table bg-white">
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Age</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <tr th:object="${user}">
+                                <td th:text="${user.getId()}">ID</td>
+                                <td th:text="${user.getFirstName}">First Name</td>
+                                <td th:text="${user.getLastName()}">Last Name</td>
+                                <td th:text="${user.getAge()}">Age</td>
+                                <td th:text="${user.getEmail()}">Email</td>
+                                <td>
+                                    <div class="d-inline-block p-1"
+                                         th:each="authGroup:${user.getAuthGroupList}">
+                                        <span th:text="${authGroup.getAuthGroup} "></span>
+                                    </div>
+                                </td>
                             </tr>
-
-                            <tr>
-
-                                <th>
-                                    <table class="table table-striped">
-                                        <th>ID</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Age</th>
-                                        <th>Email</th>
-                                        <th>Role</th>
-                                        <tr th:object="${user}">
-                                            <td th:text="${user.getId()}">ID</td>
-                                            <td th:text="${user.getFirstName}">First Name</td>
-                                            <td th:text="${user.getLastName()}">Last Name</td>
-                                            <td th:text="${user.getAge()}">Age</td>
-                                            <td th:text="${user.getEmail()}">Email</td>
-                                            <td th:text="${user.getAuthGroupList}">Role</td>
-                                        </tr>
-                                    </table>
-                                </th>
                         </table>
+
                     </div>
                 </div>
                 <div class="fixed-bottom">

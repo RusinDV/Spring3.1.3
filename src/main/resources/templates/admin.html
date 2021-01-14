@@ -6,7 +6,18 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta charset="UTF-8">
     <style>
+        body{
+            display: flex;
+            flex-direction: column;
+            height:100vh;
+            margin: 0;
+            padding: 0;
+            background-color: yellow;
+        }
 
+        .container-fluid{
+            flex: 1;
+        }
     </style>
     <title>Admin panel</title>
 </head>
@@ -15,7 +26,9 @@
 <nav class="navbar navbar-dark bg-dark">
     <div class="navbar-brand inline">
         <b th:text="${user.getEmail()}">name</b> with roles:
-        <b class="font-weight-normal" th:text="${user.getAuthGroupList()}">name</b>
+        <div class="d-inline-block p-1" th:each="authGroup:${user.getAuthGroupList}">
+            <span th:text="${authGroup.getAuthGroup} "></span>
+        </div>
     </div>
     <div>
         <a href="/logout" class="text-muted">Logout</a>
@@ -23,10 +36,10 @@
 </nav>
 
 
-<div class="container-fluid">
+<div class="container-fluid d-flex flex-column ">
 
-    <div class="row">
-        <div class="col-2">
+    <div class="row flex-fill d-flex h-100 justify-content-start">
+        <div class="col-2 bg-white">
             <ul class="nav flex-column nav-pills ">
                 <li class="nav-item">
                     <a class="nav-link active" data-toggle="tab" href="#admin">Admin</a>
@@ -63,7 +76,7 @@
                                     <h2>All users</h2>
                                     <div class="row">
                                         <div class="col">
-                                            <table class="table">
+                                            <table class="table bg-white">
                                                 <tr>
                                                     <th>ID</th>
                                                     <th>First Name</th>
@@ -80,7 +93,12 @@
                                                     <td th:text="${user.getLastName()}">Last Name</td>
                                                     <td th:text="${user.getAge()}">Age</td>
                                                     <td th:text="${user.getEmail()}">Email</td>
-                                                    <td th:text="${user.getAuthGroupList}">Role</td>
+                                                    <td>
+                                                        <div class="d-inline-block p-1"
+                                                             th:each="authGroup:${user.getAuthGroupList}">
+                                                            <span th:text="${authGroup.getAuthGroup} "></span>
+                                                        </div>
+                                                    </td>
 
                                                     <td>
                                                         <button type="button" class="btn btn-info" data-toggle="modal"
@@ -156,8 +174,8 @@
                                                                                 <select name="role"
                                                                                         class="form-control custom-select-sm"
                                                                                         multiple size="2" required>
-                                                                                    <option value="user">User</option>
                                                                                     <option value="admin">Admin</option>
+                                                                                    <option value="user">User</option>
                                                                                 </select>
                                                                             </div>
                                                                         </div>
@@ -192,7 +210,7 @@
                                                                  role="document">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
-                                                                        <h5 class="modal-title"> Edit user</h5>
+                                                                        <h5 class="modal-title"> Delete user</h5>
                                                                         <button type="button" class="close"
                                                                                 data-dismiss="modal" aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
@@ -244,22 +262,14 @@
                                                                                        readonly/>
                                                                             </div>
 
-                                                                         <!--   <div class="form-group">
-                                                                                <strong>Password</strong>
-                                                                                <input type="password"
-                                                                                       class="form-control"
-                                                                                       th:value="${user.password}"
-                                                                                       th:name="password"
-                                                                                       readonly/>
-                                                                            </div>-->
 
                                                                             <div class="form-group">
                                                                                 <strong>Role</strong>
                                                                                 <select name="role"
                                                                                         class="form-control custom-select-sm"
                                                                                         multiple size="2" disabled>
-                                                                                    <option value="user">User</option>
                                                                                     <option value="admin">Admin</option>
+                                                                                    <option value="user">User</option>
                                                                                 </select>
                                                                             </div>
                                                                         </div>
@@ -285,7 +295,6 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <!--<h1 style="float: right">Bootstrap</h1>-->
                                 </div>
                                 <div class="tab-pane fade" id="newUser">
                                     <table class="table bg-white table-striped">
@@ -339,8 +348,8 @@
                                                                 <strong>Role</strong>
                                                                 <select name="role" multiple size="2"
                                                                         class="form-control custom-select-sm">
-                                                                    <option value="user">User</option>
                                                                     <option value="admin">Admin</option>
+                                                                    <option value="user">User</option>
                                                                 </select>
                                                             </div>
                                                             <button class="btn btn-success" th:form="addUser">Add new
@@ -355,7 +364,7 @@
                                         </tr>
                                     </table>
                                 </div>
-                                <!--<h1 style="float: right">Bootstrap</h1>-->
+
                                 <div class="fixed-bottom">
                                     <h1 class="font-weight-light mr-md-5" style="float:right">Bootstrap</h1>
 
