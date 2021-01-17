@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import ru.mail.dtraider.crud.model.AuthGroup;
 import ru.mail.dtraider.crud.model.User;
 
+import javax.persistence.OrderBy;
 import java.util.List;
 
 @Repository
@@ -19,7 +20,7 @@ public class UserDaoJpaRepositoryImpl implements UserDao {
 
     @Override
     public User readUser(Long idUser) {
-        User user = userJPARepository.getOne(idUser);
+        User user = userJPARepository.findById(idUser).get();
         return user;
     }
 
@@ -47,6 +48,7 @@ public class UserDaoJpaRepositoryImpl implements UserDao {
 
     @Override
     public List<User> getUsers() {
+
         return userJPARepository.findAll();
     }
 }

@@ -40,4 +40,13 @@ public class AuthGroup {
     public void setAuthGroup(String authGroup) {
         this.authGroup = authGroup;
     }
+
+    @Override
+    public String toString() {
+        return "AuthGroup{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", authGroup='" + authGroup + '\'' +
+                '}';
+    }
 }

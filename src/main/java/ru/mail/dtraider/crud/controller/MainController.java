@@ -30,27 +30,6 @@ public class MainController {
     @GetMapping("/")
     public ModelAndView getBack() {
         ModelAndView modelAndView = new ModelAndView();
-/*
-        User user = new User();
-        user.setFirstName("1");
-        user.setLastName("1");
-        user.setAge(0);
-        user.setEmail("1@1.1");
-        user.setPassword(bCryptPasswordEncoder.encode("1"));
-
-        List<AuthGroup> authGroupListNewUser = new LinkedList<>();
-        AuthGroup authGroupUser = new AuthGroup();
-        authGroupUser.setName(user.getEmail());
-        authGroupUser.setAuthGroup("USER");
-        authGroupListNewUser.add(authGroupUser);
-
-        AuthGroup authGroupAdmin = new AuthGroup();
-        authGroupAdmin.setName(user.getEmail());
-        authGroupAdmin.setAuthGroup("ADMIN");
-        authGroupListNewUser.add(authGroupAdmin);
-        user.setAuthGroupList(authGroupListNewUser);
-        userService.createUser(user);*/
-
         modelAndView.setViewName("redirect:/login");
         return modelAndView;
     }

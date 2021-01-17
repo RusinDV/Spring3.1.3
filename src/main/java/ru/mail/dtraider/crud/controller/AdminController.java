@@ -47,65 +47,6 @@ public class AdminController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/add")
-    public ModelAndView getAdd(@ModelAttribute("user") User theUser, @ModelAttribute("role") String role) {
-        ModelAndView modelAndView = new ModelAndView();
 
-        List<AuthGroup> authGroupListNewUser = new LinkedList<>();
-
-        AuthGroup authGroupUser = new AuthGroup();
-        authGroupUser.setName(theUser.getEmail());
-        authGroupUser.setAuthGroup("USER");
-        authGroupListNewUser.add(authGroupUser);
-
-        if (role.equals("admin")) {
-            AuthGroup authGroupAdmin = new AuthGroup();
-            authGroupAdmin.setName(theUser.getEmail());
-            authGroupAdmin.setAuthGroup("ADMIN");
-            authGroupListNewUser.add(authGroupAdmin);
-        }
-        theUser.setPassword(bCryptPasswordEncoder.encode(theUser.getPassword()));
-        theUser.setAuthGroupList(authGroupListNewUser);
-        userService.createUser(theUser);
-        modelAndView.setViewName("redirect:/admin/");
-        return modelAndView;
-    }
-
-    @PostMapping(value = "/delete")
-    public ModelAndView getDelete(@ModelAttribute("newUser") User theUser) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/admin/");
-        userService.deleteUser(theUser.getId());
-        return modelAndView;
-    }
-
-
-    @PostMapping(value = "update")
-    public ModelAndView getUpdatePost(@ModelAttribute("newUser") User theUser, @ModelAttribute("role") String role) {
-        ModelAndView modelAndView = new ModelAndView();
-
-        User userOld = userService.readUser(theUser.getId());
-
-        List<AuthGroup> authGroupListUpdateUser = new LinkedList<>();
-
-        AuthGroup authGroupUser = new AuthGroup();
-        authGroupUser.setName(theUser.getEmail());
-        authGroupUser.setAuthGroup("USER");
-        authGroupListUpdateUser.add(authGroupUser);
-
-        if (role.equals("admin")) {
-            AuthGroup authGroupAdmin = new AuthGroup();
-            authGroupAdmin.setName(theUser.getEmail());
-            authGroupAdmin.setAuthGroup("ADMIN");
-            authGroupListUpdateUser.add(authGroupAdmin);
-        }
-
-        String encode = bCryptPasswordEncoder.encode(theUser.getPassword());
-
-        userService.updateUser(theUser.getId(), theUser.getFirstName(), theUser.getLastName(), theUser.getAge(), theUser.getEmail(), encode, authGroupListUpdateUser);
-
-        modelAndView.setViewName("redirect:/admin/");
-        return modelAndView;
-    }
 
 }

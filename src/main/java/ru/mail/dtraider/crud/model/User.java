@@ -7,6 +7,7 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
 
 
@@ -100,5 +101,18 @@ public class User {
             this.authGroupList.retainAll(authGroupList);
             this.authGroupList.addAll(authGroupList);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", authGroupList=" + authGroupList +
+                '}';
     }
 }
