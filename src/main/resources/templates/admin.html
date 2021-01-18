@@ -324,7 +324,7 @@
                                             <th>
                                                 <div class="row justify-content-center">
                                                     <div class="col-4 text-center">
-                                                        <form class="form-group">
+                                                        <form class="form-group" id="addUserNew">
                                                             <div class="form-group">
                                                                 <strong>First Name</strong>
                                                                 <input type="text" class="form-control" placeholder=""
@@ -347,7 +347,7 @@
 
                                                             <div class="form-group">
                                                                 <strong>Email</strong>
-                                                                <input type="email"
+                                                                <input type="text"
                                                                        class="form-control" placeholder=""
                                                                        id="emailNew"/>
 
@@ -371,8 +371,8 @@
                                                                     <option value="user">User</option>
                                                                 </select>
                                                             </div>
-                                                            <button class="btn btn-success"
-                                                                    onclick="jsAddUser()">Add new user
+                                                            <button class="btn btn-success"  onclick="jsAddUser()">Add new
+                                                                user
                                                             </button>
 
                                                         </form>
@@ -399,8 +399,7 @@
     </div>
 </div>
 
-<script src="/admin.js" type="text/javascript"></script>
-
+<script src="/admin.js" type="text/javascript" async></script>
 
 </body>
 

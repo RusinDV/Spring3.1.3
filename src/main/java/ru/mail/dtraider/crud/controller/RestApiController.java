@@ -43,10 +43,9 @@ public class RestApiController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> addUser(@RequestBody User user) {
-
-        List<AuthGroup> authGroupListNewUser = new LinkedList<>();
+    @PostMapping(value = "/user")
+    public ResponseEntity<?> addUser(@RequestBody User user) {
+        /*List<AuthGroup> authGroupListNewUser = new LinkedList<>();
 
         AuthGroup authGroupUser = new AuthGroup();
         authGroupUser.setName(user.getEmail());
@@ -59,13 +58,23 @@ public class RestApiController {
             authGroupAdmin.setAuthGroup("ADMIN");
             authGroupListNewUser.add(authGroupAdmin);
         }
+        User userNew = new User(user.getFirstName(), user.getLastName(), user.getAge(), user.getEmail(), bCryptPasswordEncoder.encode(user.getPassword()), authGroupListNewUser);
+        user.setAuthGroupList(authGroupListNewUser);*/
 
-        user.setAuthGroupList(authGroupListNewUser);
+
+        System.out.println("________________________________");
+        System.out.println(user);
+        System.out.println("________________________________");
 
         String encode = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(encode);
         userService.createUser(user);
-        return ResponseEntity.ok().body(user);
+
+        System.out.println("________________________________");
+        System.out.println(user);
+        System.out.println("________________________________");
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 

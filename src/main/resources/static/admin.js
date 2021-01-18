@@ -168,8 +168,9 @@ function jsAddUser() {
     $.ajax({
         url: "/rest/user",
         type: "POST",
-        dataType: "json",
-        contentType: "application/json",
+        // dataType: "json",
+        headers: {"Content-type": "application/json"},
+        //contentType: "application/json",
         data: JSON.stringify(userNew),
         success: function () {
             alert("Saved");
@@ -185,6 +186,9 @@ function jsAddUser() {
             console(errorThrown)
         }
     });
+
 }
+
+
 
 
