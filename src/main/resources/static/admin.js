@@ -95,16 +95,14 @@ function editUser(id) {
             $("#lastNameEdit").append().val(user.lastName);
             $("#ageEdit").append().val(user.age);
             $("#emailEdit").append().val(user.email);
-            let checkUser = false;
-            for (let authGroupP of user.authGroupList) {
-                if (authGroupP.authGroup === "ADMIN") {
-                    checkUser = true;
-                }
-            }
-            if (checkUser) {
-                $("#roleEdit").prop("admin", true)
+            $("#passwordEdit").append().val(user.password);
+
+
+            if (user.authGroupList.length > 1) {
+                $("#roleEdit").val("admin")
             } else {
-                $("#roleEdit").prop("user", true);
+
+                $("#roleEdit").val("user");
             }
         }
     });
@@ -143,7 +141,8 @@ function updateUser() {
     })
 }
 
-function jsAddUser() {
+/*function jsAddUser() {
+
     let rolesNew = [];
 
     if ($("#roleNew").val() == "admin") {
@@ -169,7 +168,6 @@ function jsAddUser() {
         url: "/rest/user",
         type: "POST",
         dataType: "json",
-        //headers: {"Content-type": "application/json"},
         contentType: "application/json",
         data: JSON.stringify(userNew),
         success: function () {
@@ -187,7 +185,59 @@ function jsAddUser() {
         }
     });
 
-}
+}*/
+
+$(document).on('submit', 'form#newUserForm', function (e) {
+    e.preventDefault();
+    let rolesNew = [];
+
+    if ($("#roleNew").val() == "admin") {
+        rolesNew.push({id: null, name: $("#emailNew").val(), authGroup: "ADMIN"});
+        rolesNew.push({id: null, name: $("#emailNew").val(), authGroup: "USER"});
+
+    } else {
+        rolesNew.push({name: $("#emailNew").val(), authGroup: "USER"});
+    }
+
+    let userNew = {
+        id: null,
+        firstName: $("#firstNameNew").val(),
+        lastName: $("#lastNameNew").val(),
+        age: $("#ageNew").val(),
+        email: $("#emailNew").val(),
+        password: $("#passwordNew").val(),
+        authGroupList: rolesNew
+    };
+    $.ajax({
+        url: "/rest/user",
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(userNew),
+        success: function () {
+            updateTable();
+            $('#userTab').addClass("active");
+            $('#table').addClass("show active");
+            $('#newUser').removeClass("show active");
+            $('#userNewTab').removeClass("active");
+
+            $("#firstNameNew").val("");
+            $("#lastNameNew").val("");
+            $("#ageNew").val("");
+            $("#emailNew").val("");
+            $("#passwordNew").val("");
+            $("#roleNew").val("");
+
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert(textStatus);
+            alert(errorThrown);
+
+        }
+    });
+
+})
 
 
 

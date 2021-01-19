@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+//@NamedQuery(name = "User.findAll", query="select u from User u order by u.id")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

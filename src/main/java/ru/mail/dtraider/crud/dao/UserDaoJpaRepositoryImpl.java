@@ -1,6 +1,7 @@
 package ru.mail.dtraider.crud.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import ru.mail.dtraider.crud.model.AuthGroup;
 import ru.mail.dtraider.crud.model.User;
@@ -48,7 +49,6 @@ public class UserDaoJpaRepositoryImpl implements UserDao {
 
     @Override
     public List<User> getUsers() {
-
-        return userJPARepository.findAll();
+        return userJPARepository.findAll(Sort.by("id"));
     }
 }

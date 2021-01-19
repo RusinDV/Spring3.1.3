@@ -1,13 +1,13 @@
 package ru.mail.dtraider.crud.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import ru.mail.dtraider.crud.model.AuthGroup;
+
 import ru.mail.dtraider.crud.model.User;
 import ru.mail.dtraider.crud.service.UserService;
 
@@ -44,37 +44,11 @@ public class RestApiController {
     }
 
     @PostMapping(value = "/user")
-    public ResponseEntity<?> addUser(@RequestBody User user) {
-        /*List<AuthGroup> authGroupListNewUser = new LinkedList<>();
-
-        AuthGroup authGroupUser = new AuthGroup();
-        authGroupUser.setName(user.getEmail());
-        authGroupUser.setAuthGroup("USER");
-        authGroupListNewUser.add(authGroupUser);
-
-        if (user.getAuthGroupList().size() > 1) {
-            AuthGroup authGroupAdmin = new AuthGroup();
-            authGroupAdmin.setName(user.getEmail());
-            authGroupAdmin.setAuthGroup("ADMIN");
-            authGroupListNewUser.add(authGroupAdmin);
-        }
-        User userNew = new User(user.getFirstName(), user.getLastName(), user.getAge(), user.getEmail(), bCryptPasswordEncoder.encode(user.getPassword()), authGroupListNewUser);
-        user.setAuthGroupList(authGroupListNewUser);*/
-
-
-        System.out.println("________________________________");
-        System.out.println(user);
-        System.out.println("________________________________");
-
+    public ResponseEntity<User> addUser(@RequestBody User user) {
         String encode = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(encode);
         userService.createUser(user);
-
-        System.out.println("________________________________");
-        System.out.println(user);
-        System.out.println("________________________________");
-        return new ResponseEntity<>(HttpStatus.CREATED);
-        //return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(user);
     }
 
 
